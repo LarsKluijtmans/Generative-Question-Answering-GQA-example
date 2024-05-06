@@ -1,0 +1,12 @@
+[MASTER]
+
+# Specify errors or warnings to ignore
+# E1121: Too many positional arguments for classmethod call (too-many-function-args)
+# E1120: No value for argument 'history' in function call (no-value-for-parameter)
+# W0718: Catching too general exception Exception (broad-exception-caught)
+# R0903: Too few public methods (1/2) (too-few-public-methods)
+
+disable = E1121, W0718, E1120, R0903
+
+# Set the maximum line length to 140 characters
+max-line-length=140
