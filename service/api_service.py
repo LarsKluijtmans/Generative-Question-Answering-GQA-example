@@ -1,6 +1,5 @@
 """Service to interact with AI for answering questions based on chat history."""
 
-from injectable import injectable
 from langchain.chains.base import Chain
 from langchain.chains.conversational_retrieval.base import ConversationalRetrievalChain
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -9,7 +8,6 @@ from langchain_community.chat_models import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 
 
-@injectable()
 class ApiService:
     """Service to interact with AI for answering questions based on chat history."""
 

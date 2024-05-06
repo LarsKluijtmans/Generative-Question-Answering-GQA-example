@@ -1,1 +1,1 @@
-# QA cli tool example
+# Generative Question Answering (GQA) example

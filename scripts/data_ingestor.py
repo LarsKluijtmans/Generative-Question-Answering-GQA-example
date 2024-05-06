@@ -1,6 +1,7 @@
 """Ingest documents from a folder and vectorize them using Pinecone."""
 
-import click
+import argparse
+
 from langchain.document_loaders.directory import DirectoryLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -8,16 +9,9 @@ from langchain.vectorstores.pinecone import Pinecone as LangPinecone
 from pinecone import Pinecone
 
 
-@click.command()
-@click.option(
-    "--folder_path", default="docs", help="Path to the folder containing documents."
-)
 def run(folder_path):
     """
     Ingest documents from a folder and vectorize them using Pinecone.
-
-    Parameters:
-        folder_path (str): Path to the folder containing documents.
     """
     try:
         pinecone = Pinecone()
@@ -42,3 +36,13 @@ def run(folder_path):
         print("Document ingestion complete")
     except Exception as error:
         raise RuntimeError("Failed to ingest your data") from error
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Ingest documents and vectorize them.")
+    parser.add_argument(
+        "--folder_path", default="docs", help="Path to the folder containing documents."
+    )
+
+    args = parser.parse_args()
+    run(args.folder_path)

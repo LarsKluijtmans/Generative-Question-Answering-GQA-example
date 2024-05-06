@@ -5,8 +5,9 @@
 # E1120: No value for argument 'history' in function call (no-value-for-parameter)
 # W0718: Catching too general exception Exception (broad-exception-caught)
 # R0903: Too few public methods (1/2) (too-few-public-methods)
+# C0415: Import outside toplevel (service.api_service.ApiService) (import-outside-toplevel)
 
-disable = E1121, W0718, E1120, R0903
+disable = E1121, W0718, E1120, R0903, C0415
 
 # Set the maximum line length to 140 characters
 max-line-length=140
