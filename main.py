@@ -15,6 +15,9 @@ warnings.filterwarnings("ignore")
 def answer(question, history):
     """
     Command-line tool to get an answer to a question based on vector database.
+
+    This tool utilizes the ApiService to fetch an answer to the provided
+    question using the contextual chat history stored in the vector database.
     """
     try:
         response = api_service.get_answer(question, history)

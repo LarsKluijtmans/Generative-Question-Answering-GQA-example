@@ -9,7 +9,13 @@ from langchain_core.prompts import ChatPromptTemplate
 
 
 class ApiService:
-    """Service to interact with AI for answering questions based on chat history."""
+    """
+    Service to interact with AI for answering questions based on chat history.
+
+    This service utilizes a conversational retrieval model to provide answers
+    based on contextual chat history. It interfaces with Pinecone vector stores
+    and leverages OpenAI's language model for conversational understanding.
+    """
 
     QA_template = """
     You are a helpful AI assistant. Use the following pieces of context to answer the question at the end.
@@ -17,7 +23,7 @@ class ApiService:
     If the question is not related to the context, politely respond that you are tuned to only answer questions that are related to the context.
 
     Chat History: {chat_history}
-        
+
     Helpful answer in markdown:
     """
 
@@ -35,10 +41,8 @@ class ApiService:
         """
         Initialize the ApiService.
 
-        Reads configuration values from environment variables.
-
         Parameters:
-            pinecone_index_name (str): Pinecone index name.
+            pinecone_index_name (str): The name of the Pinecone index.
         """
         self.pinecone_index_name = pinecone_index_name
 
@@ -48,10 +52,10 @@ class ApiService:
 
         Parameters:
             question (str): The question to be answered.
-            history (list[str]): A list of previous chat messages.
+            history (str): Previous chat messages.
 
         Returns:
-            dict[str, any]: The answer to the question, with the chat history.
+            dict[str, any]: The answer to the question, along with the chat history.
         """
         vector_store = self._get_pinecone()
 
@@ -63,7 +67,12 @@ class ApiService:
         return response
 
     def _get_pinecone(self) -> LangPinecone:
-        # Create vector store
+        """
+        Create and return a Pinecone vector store.
+
+        Returns:
+            LangPinecone: The Pinecone vector store.
+        """
         vector_store = LangPinecone.from_existing_index(
             embedding=OpenAIEmbeddings(),
             index_name=self.pinecone_index_name,
@@ -79,7 +88,7 @@ class ApiService:
             vector_store (LangPinecone): The vector store used for retrieval.
 
         Returns:
-            ConversationalRetrievalQAChain: The created QA chain.
+            Chain: The created QA chain.
         """
         llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
         retriever = vector_store.as_retriever()

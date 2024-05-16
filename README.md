@@ -1,5 +1,52 @@
 # Generative Question Answering (GQA) example
 
+## Introduction
+This command-line tool provides a convenient way to retrieve answers to questions based on contextual chat history 
+stored in a vector database. It leverages advanced AI models to understand the questions and provide relevant responses.
+
+### Install Dependencies:
+
+Ensure that the required dependencies are installed. 
+
+These dependencies include Pinecone, Transformers, and dotenv. You can install them via pip:
+
+```commandline
+py -m venv venv
+.\venv\Scripts\activate
+pip install -r requirments.txt
+```
+
+### Setup Environment Variables: 
+
+Before running the script, set up a .env file in the root directory of the project. 
+
+This file should contain the following variables:
+
+- PINECONE_API_KEY: Your Pinecone API key.
+- PINECONE_INDEX_NAME: The name of the Pinecone index where the vectors will be stored.
+- OPENAI_API_KEY: Your OpenAI API key.
+
+### Running the Tool
+
+To use the command-line tool, follow these steps:
+
+- Navigate to the directory where the tool is located
+- Run the script with the --question flag followed by the question you want to ask.
+- Optionally, provide the --history flag followed by the history of previous chat messages.
+
+```commandline
+py answer_tool.py --question "What is the capital of France?" --history "Previous chat messages here."
+```
+
+#### Input Paramaters: 
+
+--question: Specifies the question you want to ask.
+--history: (Optional) Provides the history of previous chat messages. This helps the AI model understand the context better.
+
+#### Output: 
+
+The tool will return the AI-generated answer to your question.
+
 ## Data Ingestor
 
 The **data_ingestor** script facilitates the ingestion of documents from a specified folder and subsequently vectorizes 
@@ -12,26 +59,12 @@ To use the script, follow these steps:
 
 #### Install Dependencies:
 
-Ensure that the required dependencies are installed. 
-
-These dependencies include Pinecone, Transformers, and dotenv. You can install them via pip:
-
-```commandline
-py -m venv venv
-.\venv\Scripts\activate
-pip install -r requirments.txt
-```
+Follow the **Install Dependencies** steps previously mentioned.
 
 #### Setup Environment Variables: 
 
-Before running the script, set up a .env file in the root directory of the project. 
+Follow the **Setup Environment Variables** steps previously mentioned.
 
-This file should contain the following variables:
-
-- PINECONE_API_KEY: Your Pinecone API key.
-- PINECONE_INDEX_NAME: The name of the Pinecone index where the vectors will be stored.
-- OPENAI_API_KEY: Your OpenAI API key.
-- 
 #### Run the Script: 
 
 Execute the script, specifying the path to the folder containing the documents you want to ingest. For example:

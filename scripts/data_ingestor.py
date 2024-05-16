@@ -11,7 +11,9 @@ from pinecone import Pinecone
 
 from dotenv import load_dotenv
 from transformers import logging
+
 logging.set_verbosity_error()
+
 
 def run(folder_path):
     """
@@ -27,22 +29,18 @@ def run(folder_path):
     raw_docs = directory_loader.load()
 
     print("Create text spliter")
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000, chunk_overlap=200
-    )
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 
     print("Chunk the data")
     docs = text_splitter.split_documents(raw_docs)
     print("Raw text chunks:", len(docs))
 
-    print("Initilize embeddings and index")
+    print("Initialize embeddings")
     embeddings = OpenAIEmbeddings()
-    index = pinecone.Index(pinecone_index)
 
     print("Insert documents into pinecone")
-    LangPinecone.from_documents(
-        docs, embeddings, index_name=pinecone_index
-    )
+    LangPinecone.from_documents(docs, embeddings, index_name=pinecone_index)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Ingest documents and vectorize them.")
